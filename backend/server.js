@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("node:path");
+const { randomBytes } = require("node:crypto");
 require("dotenv").config();
 
 const connectDB = require("./config/database");
@@ -101,12 +102,17 @@ app.use((error, req, res, next) => {
 });
 
 async function startServer() {
-  if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) {
-    throw new Error("JWT_SECRET must be configured with at least 32 characters.");
-  }
-
   const allowLocalFallback = process.env.LOCAL_DATA_FALLBACK === "true" ||
     (process.env.LOCAL_DATA_FALLBACK !== "false" && process.env.NODE_ENV !== "production");
+
+  if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) {
+    if (process.env.NODE_ENV === "production" && process.env.LOCAL_DATA_FALLBACK === "true") {
+      process.env.JWT_SECRET = randomBytes(32).toString("hex");
+      console.warn("Using an in-memory demo signing key; sessions will end when this service restarts.");
+    } else {
+      throw new Error("JWT_SECRET must be configured with at least 32 characters.");
+    }
+  }
 
   if (process.env.MONGODB_URI) {
     try {

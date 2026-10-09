@@ -2,7 +2,7 @@
 
 Loopnex is an industrial-material marketplace MVP. Generators can publish material listings, buyers can search and send requests, and both sides can update a request through completion. A feedback form is included.
 
-> **Demo status:** This repository is not connected to a live hosted server. Run the frontend and backend locally before demonstrating the app.
+> **Demo status:** Use the live demo link in the repository description when available. For a local presentation, run the frontend and backend with the steps below.
 
 ## Run on one laptop
 
@@ -75,3 +75,7 @@ Authenticated requests use `Authorization: Bearer <token>`. Only buyers can requ
 ## Shared database for multiple networks
 
 For data shared across different networks, configure MongoDB Atlas in a private `backend/.env` file. Use a database user restricted to this project and allow the backend machine's public IP in Atlas Network Access. Set `LOCAL_DATA_FALLBACK=false` to make startup fail clearly when the database cannot be reached instead of silently using laptop-only data. Never commit the Atlas URI or JWT secret.
+
+## Free hosted demo
+
+The Render Blueprint in `render.yaml` serves the frontend and API from one HTTPS URL. It uses temporary local JSON storage so the demo works without a MongoDB account. Free Render services can sleep after inactivity and erase local data when they restart; warm the link before judging and use demo-only accounts. This setup is for a hackathon demo, not persistent production data.
