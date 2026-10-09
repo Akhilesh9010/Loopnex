@@ -1,56 +1,71 @@
 # Loopnex
 
-Loopnex is a local frontend and API for an industrial-material marketplace.
+Loopnex is an industrial-material marketplace MVP. Generators can publish material listings, buyers can search and send requests, and both sides can update a request through completion. A feedback form is included.
 
-## Run locally
+> **Demo status:** This repository is not connected to a live hosted server. Run the frontend and backend locally before demonstrating the app.
 
-Requirements: Node.js 20.19 or newer, npm, and Python 3. MongoDB is optional for local development.
+## Run on one laptop
 
-1. Open a terminal in `backend` and install packages once:
+Requirements: Node.js 22 (or Node.js 20.19 or newer), npm, and Python 3. MongoDB is optional for local development.
+
+1. In a terminal, open `backend` and set up the local environment:
+
+   ```powershell
+   Copy-Item .env.example .env
+   ```
+
+   Replace `JWT_SECRET` in `.env` with a private random value of at least 32 characters. Keep `.env` on your computer; it is excluded from Git.
+
+2. In the `backend` terminal, install and start the API:
 
    ```powershell
    npm install
-   ```
-
-2. Copy `backend/.env.example` to `backend/.env` and replace `JWT_SECRET` with a private random value of at least 32 characters. Never commit or share `.env`.
-3. In the `backend` folder, start the API:
-
-   ```powershell
    npm start
    ```
 
-   The API is at `http://127.0.0.1:5000`; its health check is `http://127.0.0.1:5000/api/health`.
-4. In a second terminal, open the project folder and serve the frontend:
+   The API should respond at `http://127.0.0.1:5000`; check `http://127.0.0.1:5000/api/health`.
+
+3. In a second terminal, open the project root and serve the frontend:
 
    ```powershell
    py -m http.server 5500
    ```
 
-5. Open `http://localhost:5500` in a browser.
+4. Open `http://localhost:5500` in a browser. Keep both terminals running while you use the site.
 
-By default, the backend uses a private JSON data file at `backend/data/loopnex.local.json` when no MongoDB URI is configured or Atlas cannot be reached. This keeps registration, listings, requests, and feedback working on one computer. Local fallback data is separate from Atlas and is not synced to other computers.
+By default, the API saves registrations, listings, requests, and feedback in `backend/data/loopnex.local.json`. This local JSON file is private to that laptop and is not synced to another computer. If MongoDB Atlas is configured and reachable, the API uses it instead.
 
-## Deploy the full app
+## Demo from another laptop on the same Wi-Fi
 
-The Render blueprint in `render.yaml` deploys the Node API and serves the frontend from the same HTTPS origin. This avoids pointing a hosted browser at a visitor's own `localhost` and keeps API requests on the deployed host. For a quick hackathon demo, the blueprint enables the app's JSON fallback so registration, listings, requests, and feedback can be exercised without a database account. Render generates `JWT_SECRET` and provides the public HTTPS URL after deployment.
+The word `localhost` always means “this device.” If a friend opens `http://localhost:5500`, their browser looks for a site and API on their own laptop.
 
-The demo fallback is not durable cloud storage: data can disappear when the free service restarts, and it is not suitable for real users. For persistent shared data, add a MongoDB Atlas database, configure `MONGODB_URI` as a private Render environment variable, and switch `LOCAL_DATA_FALLBACK` to `false`. The `/api/health` endpoint reports which storage mode is active.
+To share one running demo across laptops on the same trusted Wi-Fi:
 
-The current `backend/.env` is local-only and is excluded from Git. Do not put credentials in the repository. This demo uses temporary local storage unless a reachable MongoDB Atlas URI is configured.
+1. On the host laptop, set `HOST=0.0.0.0` in `backend/.env` and start the API.
+2. Serve the frontend on the network with `py -m http.server 5500 --bind 0.0.0.0`.
+3. Allow Node.js and Python through the laptop firewall on the **Private** network if Windows asks.
+4. Find the host laptop's local IPv4 address, then open `http://<host-ip>:5500` on the other laptop. The frontend uses that same host on port `5000` for API calls.
 
-## MongoDB Atlas and another laptop
+Keep the laptops on the same trusted network. The JSON data stays on the host laptop. Do not expose the development API directly to the public internet.
 
-To use shared storage, add `MONGODB_URI` to `.env` and set `LOCAL_DATA_FALLBACK=false` if the API must stop rather than switch to local-only data. Each computer running the backend connects to MongoDB from its own network. In Atlas, allow the backend computer's public IP in **Network Access**, and use a database user with access to the project database. URL-encode special characters in the URI username or password.
+## Current MVP scope
 
-`localhost` always refers to the computer using the browser. For a friend to run this project locally, the friend needs both the frontend and API running on their laptop. The local JSON fallback works without Atlas, but each laptop gets separate data. In production, the frontend automatically uses `/api` on the same deployed origin; for a separately hosted frontend, configure `window.LOOPNEX_API_BASE` to the deployed API URL.
+- **Implemented:** account registration and login for generator, buyer, and logistics roles; material listings; keyword/category search; buyer requests; request status changes; feedback form.
+- **Not implemented yet:** distance-based or AI-ranked matching, verified-company checks, a dedicated transport-partner workflow, file/photo uploads, password reset, and review/report tools.
+
+The logistics role can register, but it does not yet have transport-service areas, vehicle capacity, shipment assignment, or pickup/delivery status screens. The site does not claim business or certification verification.
 
 ## API overview
 
 - `POST /api/auth/register`, `POST /api/auth/login`, `GET /api/auth/me`
-- `GET /api/listings` (search with `search`, filter with `category`), `GET /api/listings/:id`
+- `GET /api/listings` (supports `search`, `category`, `page`, and `limit`), `GET /api/listings/:id`
 - Authenticated generators: `POST /api/listings`, `PATCH /api/listings/:id`, `DELETE /api/listings/:id`
 - Authenticated buyers: `POST /api/listings/:id/interest`
 - Authenticated users: `GET /api/dashboard`, `GET /api/transactions`, `PATCH /api/transactions/:id/status`
-- Public feedback form: `POST /api/feedback` (saved to the configured storage; limited to five submissions per IP every 15 minutes in this MVP)
+- Public feedback: `POST /api/feedback` (five submissions per IP every 15 minutes per running API process)
 
-Requests that require an account use `Authorization: Bearer <token>`. Registration roles are `generator`, `buyer`, and `logistics`; only buyers can request material, and only generators can publish listings.
+Authenticated requests use `Authorization: Bearer <token>`. Only buyers can request listings, and only generators can publish them.
+
+## Shared database for multiple networks
+
+For data shared across different networks, configure MongoDB Atlas in a private `backend/.env` file. Use a database user restricted to this project and allow the backend machine's public IP in Atlas Network Access. Set `LOCAL_DATA_FALLBACK=false` to make startup fail clearly when the database cannot be reached instead of silently using laptop-only data. Never commit the Atlas URI or JWT secret.

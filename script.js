@@ -1,7 +1,8 @@
 const modal = document.getElementById("modal");
 const API_HOST = window.location.hostname || "localhost";
 const isLocalDevelopment = API_HOST === "localhost" || API_HOST === "127.0.0.1";
-const API_BASE = window.LOOPNEX_API_BASE || (isLocalDevelopment
+const isLocalFrontendServer = isLocalDevelopment || window.location.port === "5500";
+const API_BASE = window.LOOPNEX_API_BASE || (isLocalFrontendServer
   ? `${window.location.protocol === "https:" ? "https" : "http"}://${API_HOST}:5000/api`
   : `${window.location.origin}/api`);
 
