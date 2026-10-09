@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Loopnex — Circular Industrial Marketplace</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<video class="bg" autoplay muted loop playsinline>
+ <source src="WhatsApp Video 2026-10-08 at 22.52.27.mp4" type="video/mp4">
+</video>
+<div class="shade"></div>
+<header>
+  <a class="logo" href="#home">
+  <img src="loopnex-logo-transparent.png" alt="Loopnex Logo">
+</a>
+  <nav id="nav">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#how">How It Works</a>
+    <a href="#marketplace">Marketplace</a>
+    <a href="#impact">Impact</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="auth">
+    <button onclick="openModal('login')">Login</button>
+    <button class="solid" onclick="openModal('register')">Register</button>
+  </div>
+  <button class="hamb"
+    onclick="document.querySelector('nav').classList.toggle('show')">
+    ☰
+  </button>
+</header>
+<main id="home">
+<section class="hero">
+  <div class="tag">AI-POWERED CIRCULAR ECONOMY</div>
+  <h1>
+    Industrial waste.<br>
+    <em>New value.</em>
+  </h1>
+  <p>
+    Loopnex connects verified waste generators with authorized absorbers
+    using AI matching, compliance and green logistics.
+  </p>
+  <div class="actions">
+    <a class="solid big" href="#marketplace">
+      Explore Marketplace →
+    </a>
+
+    <a class="ghost big" href="#how">
+      How It Works
+    </a>
+  </div>
+
+  <div class="mini">
+    <span><b>AI</b> Smart Matching</span>
+    <span><b>✓</b> Verified Partners</span>
+    <span><b>⌁</b> Green Logistics</span>
+  </div>
+  <div class="quote-box">
+  <div class="quote-track" >
+    <span >“Waste isn’t waste until we waste it. Let’s close the loop with Loopnex.”</span>
+    <span >“Waste isn’t waste until we waste it. Let’s close the loop with Loopnex.”</span>
+  </div>
+</div>
+</section>
+
+
+<section id="about" class="section">
+  <div class="tag">ABOUT LOOPNEX</div>
+
+  <h2>A connected ecosystem for industrial waste.</h2>
+
+  <div class="grid">
+
+    <article>
+      <b>01</b>
+      <h3>Discover</h3>
+      <p>
+        List waste materials with specifications, quantity and location.
+      </p>
+    </article>
+
+    <article>
+      <b>02</b>
+      <h3>Match</h3>
+      <p>
+        Intelligent matching considers material characteristics and distance.
+      </p>
+    </article>
+
+    <article>
+      <b>03</b>
+      <h3>Move</h3>
+      <p>
+        Coordinate transactions and track greener logistics end-to-end.
+      </p>
+    </article>
+
+  </div>
+</section>
+
+
+<section id="how" class="section">
+
+  <div class="tag">HOW IT WORKS</div>
+
+  <h2>From waste to opportunity.</h2>
+
+  <div class="steps">
+
+    <div>
+      <strong>1</strong>
+      <h3>Generator</h3>
+      <p>Upload industrial waste.</p>
+    </div>
+
+    <div>
+      <strong>2</strong>
+      <h3>AI Match</h3>
+      <p>Find suitable absorbers.</p>
+    </div>
+
+    <div>
+      <strong>3</strong>
+      <h3>Verify</h3>
+      <p>Check authorized partners.</p>
+    </div>
+
+    <div>
+      <strong>4</strong>
+      <h3>Transact</h3>
+      <p>Connect and coordinate.</p>
+    </div>
+
+    <div>
+      <strong>5</strong>
+      <h3>Logistics</h3>
+      <p>Move and track material.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<section id="marketplace" class="section">
+
+  <div class="tag">MARKETPLACE</div>
+
+  <h2>Find materials. Find buyers.</h2>
+
+  <div class="market">
+
+    <input
+      id="search"
+      placeholder="Search material, category or location…"
+      oninput="filterCards()"
+    >
+
+    <select id="categoryFilter" onchange="loadListings()">
+      <option>All Categories</option>
+      <option>Metal</option>
+      <option>Chemical</option>
+      <option>Plastic</option>
+      <option>Industrial</option>
+    </select>
+
+  </div>
+
+  <div class="grid listings" id="listings" aria-live="polite">
+    <p>Loading available materials…</p>
+  </div>
+</section>
+
+
+<section id="impact" class="section impact-section">
+  <div class="tag">THE LOOPNEX DIFFERENCE</div>
+  <h2>Value across the material journey</h2>
+  <p class="impact-intro">Loopnex is designed to make industrial reuse easier to discover, coordinate, and measure.</p>
+
+  <div class="stats impact-grid">
+    <div>
+      <b>01</b>
+      <h3>Find a fit</h3>
+      <p>Connect available materials with buyers looking for a suitable supply.</p>
+    </div>
+    <div>
+      <b>02</b>
+      <h3>Compare clearly</h3>
+      <p>Use material details, quantity, condition, and location to make informed choices.</p>
+    </div>
+    <div>
+      <b>03</b>
+      <h3>Coordinate delivery</h3>
+      <p>Keep generators, buyers, and logistics partners aligned on each shipment.</p>
+    </div>
+    <div>
+      <b>04</b>
+      <h3>Track outcomes</h3>
+      <p>Build a record of completed transactions that can support future impact reporting.</p>
+    </div>
+  </div>
+  <p class="impact-note">Impact figures should come from verified completed transactions, not listing estimates.</p>
+</section>
+
+
+<section id="contact" class="cta">
+
+  <div>
+    <div class="tag">GET STARTED</div>
+
+    <h2>
+      Make waste the beginning of something better.
+    </h2>
+
+    <p>
+      Join the Loopnex circular ecosystem.
+    </p>
+    <p><a class="feedback-link" href="#feedback">Have feedback? Share it with us.</a></p>
+  </div>
+
+  <button class="solid big" onclick="openModal('register')">
+    Create Account →
+  </button>
+
+</section>
+
+<section id="feedback" class="section feedback-section">
+  <div class="tag">HELP US IMPROVE</div>
+  <h2>Share your feedback</h2>
+  <p class="feedback-intro">Tell us what works, what feels confusing, or what Loopnex should add next.</p>
+
+  <form id="feedbackForm" class="feedback-form">
+    <label for="feedbackType">What is your feedback about?</label>
+    <select id="feedbackType" name="type" required>
+      <option value="">Choose a topic</option>
+      <option value="Suggestion">Feature suggestion</option>
+      <option value="Bug report">Something is not working</option>
+      <option value="General feedback">General feedback</option>
+    </select>
+
+    <label for="feedbackMessageInput">Your feedback</label>
+    <textarea id="feedbackMessageInput" name="message" minlength="10" maxlength="3000" rows="5" placeholder="Share the details…" required></textarea>
+
+    <label for="feedbackEmail">Email address <span>(optional, if you would like a reply)</span></label>
+    <input id="feedbackEmail" name="email" type="email" maxlength="254" autocomplete="email" placeholder="you@example.com">
+
+    <div class="feedback-honeypot" aria-hidden="true">
+      <label for="companyWebsite">Leave this field blank</label>
+      <input id="companyWebsite" name="companyWebsite" type="text" tabindex="-1" autocomplete="off">
+    </div>
+
+    <input name="page" type="hidden" value="">
+    <button class="solid big" type="submit">Send feedback</button>
+    <p class="feedback-privacy">Please do not include passwords or sensitive personal information.</p>
+    <p id="feedbackStatus" role="status" aria-live="polite"></p>
+  </form>
+</section>
+
+
+</main>
+
+
+<footer>
+  © 2026 loopnex · Circular industrial marketplace · <a href="#feedback">Feedback</a>
+</footer>
+
+
+<div class="modal" id="modal">
+
+  <div class="box">
+
+    <button class="close" onclick="closeModal()">×</button>
+    <p id="authMessage" role="status"></p>
+
+    <div id="loginForm">
+
+      <div class="tag">WELCOME BACK</div>
+
+      <h2>Login to Loopnex</h2>
+
+      <input
+  id="loginEmail"
+  type="email"
+  placeholder="Email address"
+  autocomplete="email"
+  required
+>
+
+<input
+  id="loginPassword"
+  type="password"
+  placeholder="Password"
+  autocomplete="current-password"
+  required
+>
+      <button class="solid full" onclick="demoLogin()">
+        Login
+      </button>
+
+      <p>
+        New to Loopnex?
+        <a onclick="switchForm('register')">
+          Create account
+        </a>
+      </p>
+
+    </div>
+
+
+    <div id="registerForm" hidden>
+
+      <div class="tag">JOIN LOOPNEX</div>
+
+      <h2>Create your account</h2>
+
+      <input
+  id="registerName"
+  type="text"
+  placeholder="Full name"
+  autocomplete="name"
+  required
+>
+
+<input
+  id="registerCompany"
+  type="text"
+  placeholder="Company / Organization"
+  required
+>
+
+<input
+  id="registerEmail"
+  type="email"
+  placeholder="Email address"
+  autocomplete="email"
+  required
+>
+
+<input
+  id="registerPassword"
+  type="password"
+  placeholder="Create password (minimum 8 characters)"
+  autocomplete="new-password"
+  minlength="8"
+  required
+>
+
+<select id="registerRole" required>
+  <option value="">Choose account type</option>
+  <option value="generator">Waste Generator</option>
+  <option value="buyer">Waste Absorber / Buyer</option>
+  <option value="logistics">Logistics Partner</option>
+</select>
+
+      <button class="solid full" onclick="demoRegister()">
+        Register
+      </button>
+
+      <p>
+        Already registered?
+        <a onclick="switchForm('login')">
+          Login
+        </a>
+      </p>
+
+    </div>
+
+
+    <div id="dash" hidden>
+
+      <div class="tag">ACCOUNT</div>
+
+      <h2>Dashboard</h2>
+
+      <p>
+        Your Loopnex account is ready.
+      </p>
+
+      <div class="dashgrid">
+
+        <span>
+          Listings<br>
+          <b id="listingCount">0</b>
+        </span>
+
+        <span>
+          Matches<br>
+          <b id="matchCount">0</b>
+        </span>
+
+        <span>
+          Transactions<br>
+          <b id="transactionCount">0</b>
+        </span>
+
+      </div>
+
+      <p id="dashboardMessage" role="status"></p>
+
+      <form id="listingForm" hidden>
+        <h3>Publish a material listing</h3>
+        <input name="title" maxlength="100" placeholder="Listing title" required>
+        <input name="material" maxlength="100" placeholder="Material name" required>
+        <select name="category" required>
+          <option value="">Choose category</option>
+          <option>Metal</option><option>Chemical</option><option>Plastic</option><option>Industrial</option><option>Other</option>
+        </select>
+        <textarea name="description" maxlength="2000" placeholder="Material details" required></textarea>
+        <input name="quantity" type="number" min="0.01" step="any" placeholder="Available quantity" required>
+        <select name="unit" required>
+          <option value="">Choose unit</option>
+          <option value="kg">Kilograms</option><option value="tons">Tons</option><option value="liters">Liters</option><option value="pieces">Pieces</option>
+        </select>
+        <input name="location" maxlength="160" placeholder="City / region" required>
+        <button class="solid full" type="submit">Publish listing</button>
+      </form>
+
+      <div id="transactionList"></div>
+
+      <button
+        class="solid full"
+        onclick="closeModal()"
+      >
+        Continue to Marketplace
+      </button>
+      <button class="full" type="button" onclick="logout()">Sign out</button>
+
+    </div>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
