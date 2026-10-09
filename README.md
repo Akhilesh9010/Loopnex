@@ -55,6 +55,12 @@ Keep the laptops on the same trusted network. The JSON data stays on the host la
 
 The logistics role can register, but it does not yet have transport-service areas, vehicle capacity, shipment assignment, or pickup/delivery status screens. The site does not claim business or certification verification.
 
+## Product decisions
+
+- Search is deterministic keyword and category filtering. It is described as search, not AI matching.
+- The impact panel shows the live count of offers that match the current filters. It does not combine unlike units or estimate emissions savings from unverified listings.
+- A material request records the agreed listing details and status. It is not proof that a physical shipment was delivered.
+
 ## API overview
 
 - `POST /api/auth/register`, `POST /api/auth/login`, `GET /api/auth/me`

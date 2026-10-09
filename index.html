@@ -96,7 +96,7 @@
       <b>03</b>
       <h3>Move</h3>
       <p>
-        Send a request and update its status as both sides coordinate.
+        Send a request, review the response and mark accepted requests complete.
       </p>
     </article>
 
@@ -133,13 +133,13 @@
     <div>
       <strong>4</strong>
       <h3>Transact</h3>
-      <p>Connect and coordinate.</p>
+      <p>The generator can accept or decline a buyer's request.</p>
     </div>
 
     <div>
       <strong>5</strong>
       <h3>Coordinate</h3>
-      <p>Agree on the handoff and mark the request complete.</p>
+      <p>Both sides can mark an accepted request complete after the handoff.</p>
     </div>
 
   </div>
@@ -156,16 +156,17 @@
 
     <input
       id="search"
+      aria-label="Search material listings"
       placeholder="Search material, category or location…"
-      oninput="filterCards()"
     >
 
-    <select id="categoryFilter" onchange="loadListings()">
+    <select id="categoryFilter" aria-label="Filter listings by material category" onchange="loadListings()">
       <option>All Categories</option>
       <option>Metal</option>
       <option>Chemical</option>
       <option>Plastic</option>
       <option>Industrial</option>
+      <option>Other</option>
     </select>
 
   </div>
@@ -177,33 +178,33 @@
 
 
 <section id="impact" class="section impact-section">
-  <div class="tag">THE LOOPNEX DIFFERENCE</div>
-  <h2>Value across the material journey</h2>
-  <p class="impact-intro">Loopnex is designed to make industrial reuse easier to discover, coordinate, and measure.</p>
+  <div class="tag">A LIVE MARKETPLACE SNAPSHOT</div>
+  <h2>Start with what is actually listed</h2>
+  <p class="impact-intro">Loopnex reports marketplace activity from its API. It does not turn open offers into claimed waste-diversion or emissions savings.</p>
 
   <div class="stats impact-grid">
     <div>
+      <b id="impactListingCount" aria-live="polite">—</b>
+      <h3>Matching active offers</h3>
+      <p>Updates when you search or filter the marketplace.</p>
+    </div>
+    <div>
       <b>01</b>
-      <h3>Find a fit</h3>
-      <p>Connect available materials with buyers looking for a suitable supply.</p>
+      <h3>One request record</h3>
+      <p>Each request keeps the listing, buyer, seller, quantity, note and status together.</p>
     </div>
     <div>
       <b>02</b>
-      <h3>Compare clearly</h3>
-      <p>Use material details, quantity, condition, and location to make informed choices.</p>
+      <h3>Clear status changes</h3>
+      <p>Generators respond to requests; either party can complete an accepted request.</p>
     </div>
     <div>
-      <b>03</b>
-      <h3>Coordinate delivery</h3>
-      <p>Keep generators, buyers, and logistics partners aligned on each shipment.</p>
-    </div>
-    <div>
-      <b>04</b>
-      <h3>Track outcomes</h3>
-      <p>Build a record of completed transactions that can support future impact reporting.</p>
+      <b>—</b>
+      <h3>No invented savings</h3>
+      <p>Reuse and emissions totals need verified delivery data and defensible conversion factors.</p>
     </div>
   </div>
-  <p class="impact-note">Impact figures should come from verified completed transactions, not listing estimates.</p>
+  <p class="impact-note">The live count reflects offers matching the current search and category. It is not a measure of material actually reused.</p>
 </section>
 
 

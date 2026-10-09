@@ -22,7 +22,7 @@ async function api(path, options = {}) {
       headers: { ...authHeaders(options.body !== undefined), ...options.headers }
     });
   } catch {
-    throw new Error(`Can't reach the backend at ${API_BASE}. Start the backend on this laptop and check its MongoDB connection.`);
+    throw new Error(`Could not reach the Loopnex API at ${API_BASE}. Start the backend on port 5000. On a second laptop, open the site with the host laptop's Wi-Fi address instead of localhost.`);
   }
   const data = await response.json().catch(() => ({}));
   if (!response.ok) {
@@ -178,7 +178,10 @@ function logout() {
   setMessage("authMessage", "You have signed out.");
 }
 
+let listingsRequestNumber = 0;
+
 async function loadListings() {
+  const requestNumber = ++listingsRequestNumber;
   const container = document.getElementById("listings");
   if (!container) return;
   const params = new URLSearchParams();
@@ -187,11 +190,14 @@ async function loadListings() {
   if (search) params.set("search", search);
   if (category && category !== "All Categories") params.set("category", category);
   container.replaceChildren();
+  document.getElementById("impactListingCount").textContent = "…";
   const loading = document.createElement("p");
   loading.textContent = "Loading available materials…";
   container.append(loading);
   try {
     const result = await api(`/listings?${params.toString()}`, { headers: {} });
+    if (requestNumber !== listingsRequestNumber) return;
+    document.getElementById("impactListingCount").textContent = String(result.total);
     container.replaceChildren();
     if (!result.listings.length) {
       const empty = document.createElement("p");
@@ -209,7 +215,7 @@ async function loadListings() {
       const details = document.createElement("p");
       details.textContent = `${listing.material} · ${listing.quantity} ${listing.unit} · ${listing.location}`;
       const owner = document.createElement("p");
-      owner.textContent = listing.owner?.company ? `Listed by ${listing.owner.company}` : "Verified Loopnex member";
+      owner.textContent = listing.owner?.company ? `Listed by ${listing.owner.company}` : "Loopnex member";
       const button = document.createElement("button");
       button.textContent = "Request material →";
       button.onclick = () => requestMaterial(listing);
@@ -217,6 +223,8 @@ async function loadListings() {
       container.append(card);
     }
   } catch (error) {
+    if (requestNumber !== listingsRequestNumber) return;
+    document.getElementById("impactListingCount").textContent = "—";
     container.replaceChildren();
     const message = document.createElement("p");
     message.textContent = error.message;
@@ -291,6 +299,7 @@ document.getElementById("feedbackForm").addEventListener("submit", async (event)
 
 let searchTimer;
 document.getElementById("search").addEventListener("input", () => {
+  listingsRequestNumber += 1;
   clearTimeout(searchTimer);
   searchTimer = setTimeout(loadListings, 250);
 });
