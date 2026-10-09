@@ -13,8 +13,6 @@ services:
       - key: HOST
         value: 0.0.0.0
       - key: LOCAL_DATA_FALLBACK
-        value: "false"
+        value: "true"
       - key: JWT_SECRET
         generateValue: true
-      - key: MONGODB_URI
-        sync: false

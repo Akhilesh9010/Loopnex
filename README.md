@@ -32,7 +32,9 @@ By default, the backend uses a private JSON data file at `backend/data/loopnex.l
 
 ## Deploy the full app
 
-The Render blueprint in `render.yaml` deploys the Node API and serves the frontend from the same HTTPS origin. This avoids pointing a hosted browser at a visitor's own `localhost` and keeps API requests on the deployed host. To deploy, create a Render Blueprint from this repository, then set the generated `MONGODB_URI` secret to a MongoDB Atlas connection string for a production database. Keep `LOCAL_DATA_FALLBACK=false` so the app never reports success while saving production data only to temporary local storage. Render generates `JWT_SECRET` and provides the public HTTPS URL after deployment; its `/api/health` endpoint confirms whether MongoDB connected.
+The Render blueprint in `render.yaml` deploys the Node API and serves the frontend from the same HTTPS origin. This avoids pointing a hosted browser at a visitor's own `localhost` and keeps API requests on the deployed host. For a quick hackathon demo, the blueprint enables the app's JSON fallback so registration, listings, requests, and feedback can be exercised without a database account. Render generates `JWT_SECRET` and provides the public HTTPS URL after deployment.
+
+The demo fallback is not durable cloud storage: data can disappear when the free service restarts, and it is not suitable for real users. For persistent shared data, add a MongoDB Atlas database, configure `MONGODB_URI` as a private Render environment variable, and switch `LOCAL_DATA_FALLBACK` to `false`. The `/api/health` endpoint reports which storage mode is active.
 
 The current `backend/.env` is local-only and is excluded from Git. Do not put credentials in the repository. The deployed app requires a reachable MongoDB Atlas cluster and database user; local machine allowlists may need to be updated to permit the hosting service's connections. Use a dedicated database user and restrict Atlas network access according to the chosen host's current networking guidance.
 

@@ -9,11 +9,15 @@ const localStore = require("./services/localStore");
 const app = express();
 const PORT = Number(process.env.PORT) || 5000;
 const HOST = process.env.HOST || (process.env.NODE_ENV === "production" ? "0.0.0.0" : "127.0.0.1");
+const frontendDirectory = path.join(__dirname, "..");
 
 app.use(cors({ origin: process.env.FRONTEND_ORIGIN || true }));
 app.use(express.json({ limit: "1mb" }));
 
 app.get("/", (req, res) => {
+  if (process.env.NODE_ENV === "production") {
+    return res.sendFile(path.join(frontendDirectory, "index.html"));
+  }
   res.json({ message: "Loopnex backend is running!", docs: "/api/health" });
 });
 
@@ -37,7 +41,6 @@ app.use("/api/feedback", require("./routes/feedback"));
 
 // Serve the frontend from the same origin in production so its API requests
 // use this deployed backend without a laptop-specific localhost URL.
-const frontendDirectory = path.join(__dirname, "..");
 const frontendFiles = {
   "/": "index.html",
   "/index.html": "index.html",
