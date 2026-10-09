@@ -12,6 +12,8 @@ services:
         value: production
       - key: HOST
         value: 0.0.0.0
+      - key: TRUST_PROXY_HOPS
+        value: "1"
       - key: LOCAL_DATA_FALLBACK
         value: "true"
       - key: JWT_SECRET

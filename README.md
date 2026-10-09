@@ -36,7 +36,7 @@ The Render blueprint in `render.yaml` deploys the Node API and serves the fronte
 
 The demo fallback is not durable cloud storage: data can disappear when the free service restarts, and it is not suitable for real users. For persistent shared data, add a MongoDB Atlas database, configure `MONGODB_URI` as a private Render environment variable, and switch `LOCAL_DATA_FALLBACK` to `false`. The `/api/health` endpoint reports which storage mode is active.
 
-The current `backend/.env` is local-only and is excluded from Git. Do not put credentials in the repository. The deployed app requires a reachable MongoDB Atlas cluster and database user; local machine allowlists may need to be updated to permit the hosting service's connections. Use a dedicated database user and restrict Atlas network access according to the chosen host's current networking guidance.
+The current `backend/.env` is local-only and is excluded from Git. Do not put credentials in the repository. This demo uses temporary local storage unless a reachable MongoDB Atlas URI is configured.
 
 ## MongoDB Atlas and another laptop
 
@@ -51,6 +51,6 @@ To use shared storage, add `MONGODB_URI` to `.env` and set `LOCAL_DATA_FALLBACK=
 - Authenticated generators: `POST /api/listings`, `PATCH /api/listings/:id`, `DELETE /api/listings/:id`
 - Authenticated buyers: `POST /api/listings/:id/interest`
 - Authenticated users: `GET /api/dashboard`, `GET /api/transactions`, `PATCH /api/transactions/:id/status`
-- Public feedback form: `POST /api/feedback` (stored privately in MongoDB; limited to five submissions per IP every 15 minutes in this local MVP)
+- Public feedback form: `POST /api/feedback` (saved to the configured storage; limited to five submissions per IP every 15 minutes in this MVP)
 
 Requests that require an account use `Authorization: Bearer <token>`. Registration roles are `generator`, `buyer`, and `logistics`; only buyers can request material, and only generators can publish listings.
