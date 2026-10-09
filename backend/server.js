@@ -78,7 +78,7 @@ const frontendFiles = {
   "/style.css": "style.css",
   "/script.js": "script.js",
   "/loopnex-logo-transparent.png": "loopnex-logo-transparent.png",
-  "/WhatsApp Video 2026-10-08 at 22.52.27.mp4": "WhatsApp Video 2026-10-08 at 22.52.27.mp4"
+  "/loopnex-background.mp4": "loopnex-background.mp4"
 };
 
 for (const [url, file] of Object.entries(frontendFiles)) {
