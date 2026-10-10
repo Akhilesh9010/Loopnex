@@ -411,6 +411,8 @@
           <option>Metal</option><option>Chemical</option><option>Plastic</option><option>Industrial</option><option>Other</option>
         </select>
         <textarea name="description" maxlength="2000" placeholder="Material details" required></textarea>
+        <button class="full" id="improveListingButton" type="button" onclick="improveListingWithGemini()">Improve title and description with Gemini</button>
+        <p id="listingAIStatus" role="status">Gemini uses only the title, material, category, and description above. Review its suggestions before publishing.</p>
         <input name="quantity" type="number" min="0.01" step="any" placeholder="Available quantity" required>
         <select name="unit" required>
           <option value="">Choose unit</option>

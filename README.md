@@ -35,6 +35,12 @@ Requirements: Node.js 22 (or Node.js 20.19 or newer), npm, and Python 3. MongoDB
 
 By default, the API saves registrations, listings, requests, and feedback in `backend/data/loopnex.local.json`. This local JSON file is private to that laptop and is not synced to another computer. If MongoDB Atlas is configured and reachable, the API uses it instead.
 
+## Gemini listing assistant
+
+Generator accounts can ask Gemini to improve a material listing's title and description. The backend sends only the title, material, category, and description after the user presses the button; quantity and location are not sent. The prompt asks Gemini to avoid adding unsupported claims, and the generator reviews the suggestion before publishing. Requests require a signed-in generator account and are limited to five per account every 15 minutes.
+
+To enable it, create a Gemini API key in [Google AI Studio](https://aistudio.google.com/app/apikey), set `GEMINI_API_KEY` in `backend/.env` for local development and in the Render service's Environment settings for the live demo, then redeploy. The key belongs only in the backend environment; never put it in frontend files or commit it. The backend uses `gemini-3.8-flash` by default; set `GEMINI_MODEL` to override it. Until the key is configured, the rest of the website and backend continue to work and the helper returns a clear setup message.
+
 ## Demo from another laptop on the same Wi-Fi
 
 The word `localhost` always means “this device.” If a friend opens `http://localhost:5500`, their browser looks for a site and API on their own laptop.

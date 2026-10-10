@@ -17,3 +17,7 @@ services:
         value: "1"
       - key: LOCAL_DATA_FALLBACK
         value: "true"
+      - key: GEMINI_MODEL
+        value: gemini-3.8-flash
+      - key: GEMINI_API_KEY
+        sync: false

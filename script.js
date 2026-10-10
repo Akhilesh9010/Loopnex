@@ -170,6 +170,32 @@ async function updateTransaction(id, status) {
   }
 }
 
+async function improveListingWithGemini() {
+  const form = document.getElementById("listingForm");
+  const button = document.getElementById("improveListingButton");
+  const body = Object.fromEntries(new FormData(form).entries());
+  button.disabled = true;
+  setMessage("listingAIStatus", "Asking Gemini to improve the listing copy…");
+  try {
+    const suggestion = await api("/ai/listing-copy", {
+      method: "POST",
+      body: JSON.stringify({
+        title: body.title,
+        material: body.material,
+        category: body.category,
+        description: body.description
+      })
+    });
+    form.elements.title.value = suggestion.title;
+    form.elements.description.value = suggestion.description;
+    setMessage("listingAIStatus", suggestion.notice);
+  } catch (error) {
+    setMessage("listingAIStatus", error.message, true);
+  } finally {
+    button.disabled = false;
+  }
+}
+
 function logout() {
   sessionStorage.removeItem("loopnexToken");
   sessionStorage.removeItem("loopnexUser");

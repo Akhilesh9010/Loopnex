@@ -69,6 +69,7 @@ app.use("/api/listings", require("./routes/listings"));
 app.use("/api/transactions", require("./routes/transactions"));
 app.use("/api/dashboard", require("./routes/dashboard"));
 app.use("/api/feedback", require("./routes/feedback"));
+app.use("/api/ai", require("./routes/ai"));
 
 // Serve the frontend from the same origin in production so its API requests
 // use this deployed backend without a laptop-specific localhost URL.
