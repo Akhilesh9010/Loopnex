@@ -51,7 +51,6 @@ router.post("/listing-copy", requireAuth, requireRole("generator"), requireGemin
             parts: [{ text: JSON.stringify(listingFacts) }]
           }],
           generationConfig: {
-            temperature: 0.2,
             responseMimeType: "application/json"
           }
         })
