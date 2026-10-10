@@ -39,7 +39,7 @@ router.post("/listing-copy", requireAuth, requireRole("generator"), requireGemin
           "Content-Type": "application/json",
           "x-goog-api-key": apiKey
         },
-        signal: AbortSignal.timeout(25000),
+        signal: AbortSignal.timeout(45000),
         body: JSON.stringify({
           systemInstruction: {
             parts: [{
@@ -51,7 +51,9 @@ router.post("/listing-copy", requireAuth, requireRole("generator"), requireGemin
             parts: [{ text: JSON.stringify(listingFacts) }]
           }],
           generationConfig: {
-            responseMimeType: "application/json"
+            responseMimeType: "application/json",
+            maxOutputTokens: 256,
+            thinkingConfig: { thinkingLevel: "low" }
           }
         })
       }
