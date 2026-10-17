@@ -92,6 +92,7 @@ async function demoLogin() {
     });
     sessionStorage.setItem("loopnexToken", result.token);
     sessionStorage.setItem("loopnexUser", JSON.stringify(result.user));
+    setMessage("authMessage", "");
     await showDashboard();
   } catch (error) {
     setMessage("authMessage", error.message, true);
