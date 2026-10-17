@@ -2,7 +2,7 @@
 
 Loopnex is an industrial-material marketplace MVP. Generators can publish material listings, buyers can search and send requests, and both sides can update a request through completion. A feedback form is included.
 
-> **Live demo:** [https://loopnex-dj2m.onrender.com](https://loopnex-dj2m.onrender.com). The free service may need about a minute to wake after inactivity. For local development, run the frontend and backend with the steps below.
+> **Live demo:** [https://loopnex-dj2m.onrender.com](https://loopnex-w50t.onrender.com). The free service may need about a minute to wake after inactivity. For local development, run the frontend and backend with the steps below.
 
 ## Run on one laptop
 
